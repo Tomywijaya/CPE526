@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Cyper</title>
+	</head>
+	<body>
+		<input type="text" id="alphabet" value="ABCDEFGHIJKLMNOPQRSTUVWXYZ">
+		<input type="number" value="3" id="key">
+		<textarea id="plain_text"></textarea>
+		<button onclick="encrypt()">Encrypt</button>
+		<textarea id="chiper_text"></textarea>
+	</body>
+	<script type="text/javascript">
+		function encrypt() {
+			var alphabet = document.getElementById('alphabet').value.toUpperCase();
+			var plain_text = document.getElementById('plain_text').value.toUpperCase();
+			var key = parseInt(document.getElementById('key').value);
+			var chiper_text = '';
+			
+			for(i in plain_text){
+				index=alphabet.indexOf(plain_text[i]);
+				index = (index+key) % alphabet.length
+				chiper_text += alphabet[index];
+			}
+
+			document.getElementById('chiper_text').value=chiper_text;
+			
+			
+		}
+	</script>
+</html>
