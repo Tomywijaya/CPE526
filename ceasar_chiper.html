@@ -4,26 +4,70 @@
 		<title>Cyper</title>
 	</head>
 	<body>
-		<input type="text" id="alphabet" value="ABCDEFGHIJKLMNOPQRSTUVWXYZ">
-		<input type="number" value="3" id="key">
-		<textarea id="plain_text"></textarea>
-		<button onclick="encrypt()">Encrypt</button>
-		<textarea id="chiper_text"></textarea>
+		<h1>Ceasar Cipher</h1>
+		<hr>
+		<table>
+			<tr>
+				<td>Alpabet</td>
+				<td><input type="text" id="alphabet" value="ABCDEFGHIJKLMNOPQRSTUVWXYZ" size="40"></td>
+			</tr>
+			<tr>
+				<td>Key</td>
+				<td><input type="number" value="3" id="key" ></td>
+			</tr>
+
+			<tr>
+				<td>Plain Text</td>
+				<td><textarea id="plain_text" cols="32" rows="5"></textarea></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><button onclick="encrypt()">Encrypt</button>&nbsp;&nbsp;&nbsp;&nbsp;<button onclick="decrypt()">Decrypt</button></td>
+			</tr>
+			<tr>
+				<td>Chiper Text</td>
+				<td><textarea id="ciphertext" cols="32" rows="5"></textarea></td>
+			</tr>
+		</table>
+		
+		
+		
+		
+		
 	</body>
 	<script type="text/javascript">
 		function encrypt() {
 			var alphabet = document.getElementById('alphabet').value.toUpperCase();
 			var plain_text = document.getElementById('plain_text').value.toUpperCase();
 			var key = parseInt(document.getElementById('key').value);
-			var chiper_text = '';
+			var ciphertext = '';
 			
 			for(i in plain_text){
 				index=alphabet.indexOf(plain_text[i]);
-				index = (index+key) % alphabet.length
-				chiper_text += alphabet[index];
+				index = (((index+key) % alphabet.length)+alphabet.length)%alphabet.length;
+				
+				ciphertext += alphabet[index];
 			}
 
-			document.getElementById('chiper_text').value=chiper_text;
+			document.getElementById('ciphertext').value=ciphertext;
+			
+			
+		}
+
+		function decrypt() {
+			var alphabet = document.getElementById('alphabet').value.toUpperCase();
+			var ciphertext = document.getElementById('ciphertext').value.toUpperCase();
+			var key = parseInt(document.getElementById('key').value);
+			var plain_text = '';
+			
+			for(i in ciphertext){
+				index=alphabet.indexOf(ciphertext[i]);
+				index = (((index-key) % alphabet.length)+alphabet.length)%alphabet.length;
+				
+				plain_text += alphabet[index];
+			}
+
+			document.getElementById('plain_text').value=plain_text;
 			
 			
 		}
