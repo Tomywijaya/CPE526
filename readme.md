@@ -1,2 +1,3 @@
 CPE526
-Assignment 1
+Assignments
+
