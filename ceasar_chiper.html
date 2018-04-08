@@ -5,6 +5,7 @@
 	</head>
 	<body>
 		<h1>Ceasar Cipher</h1>
+		<h3>Test123</h3>
 		<hr>
 		<table>
 			<tr>
@@ -29,11 +30,11 @@
 				<td><textarea id="ciphertext" cols="32" rows="5"></textarea></td>
 			</tr>
 		</table>
-		
-		
-		
-		
-		
+
+
+
+
+
 	</body>
 	<script type="text/javascript">
 		function encrypt() {
@@ -41,17 +42,17 @@
 			var plain_text = document.getElementById('plain_text').value.toUpperCase();
 			var key = parseInt(document.getElementById('key').value);
 			var ciphertext = '';
-			
+
 			for(i in plain_text){
 				index=alphabet.indexOf(plain_text[i]);
 				index = (((index+key) % alphabet.length)+alphabet.length)%alphabet.length;
-				
+
 				ciphertext += alphabet[index];
 			}
 
 			document.getElementById('ciphertext').value=ciphertext;
-			
-			
+
+
 		}
 
 		function decrypt() {
@@ -59,17 +60,17 @@
 			var ciphertext = document.getElementById('ciphertext').value.toUpperCase();
 			var key = parseInt(document.getElementById('key').value);
 			var plain_text = '';
-			
+
 			for(i in ciphertext){
 				index=alphabet.indexOf(ciphertext[i]);
 				index = (((index-key) % alphabet.length)+alphabet.length)%alphabet.length;
-				
+
 				plain_text += alphabet[index];
 			}
 
 			document.getElementById('plain_text').value=plain_text;
-			
-			
+
+
 		}
 	</script>
 </html>
