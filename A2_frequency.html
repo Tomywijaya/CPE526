@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>CPE526 Assigment 2 - Frequency Analysis</title>
+	</head>
+	<body>
+		<table>
+			<tr>
+				<td align="center">Chipertext</td>
+				<td><textarea id="ciphertext" cols="50" rows="10"></textarea></td>
+				<td></td>
+			</tr>
+			
+			<tr>
+				<td align="center">Chipertext Frequency</td>
+				<td><input type="text" id="ciphertext_frequency" size="64"></td>
+				<td><span id="ciphertext_frequency_detail"></span></td>
+			</tr>
+			<tr>
+				<td align="center">Language Frequency</td>
+				<td><input type="text" id="language_frequency" size="64" value="ETAOINSHRDLCUMWFGYPBVKJXQZ"></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td align="center">Clear Text</td>
+				<td><textarea id="cleartext" cols="50" rows="15"></textarea></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><button onclick="analyze()">Analyze</button><button onclick="decode()">Decode</button></td>
+				<td></td>
+				<td></td>
+				
+			</tr>
+		</table>
+	</body>
+	<script type="text/javascript">
+		function analyze() {
+			// remove white space and special characters
+			var ciphertext = document.getElementById('ciphertext').value.replace(/\s/g,'').replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
+			var freq = {};
+			//count characters
+			for (var i=0; i<ciphertext.length;i++) {
+				var character = ciphertext.charAt(i);
+				if (freq[character]) {
+					freq[character]++;
+				} else {
+					freq[character] = 1;
+				}
+			}
+
+			
+			//create array
+			var ciphertext_frequency = [];
+			for (char in freq) {
+				ciphertext_frequency.push({"char":char,"frequency":Math.round(((freq[char]*100) / ciphertext.length)*100)/100}) ;
+			}
+
+			//sort 
+			ciphertext_frequency.sort(function (a ,b) {
+				return b.frequency-a.frequency;
+			});
+
+			//show details in span
+			document.getElementById('ciphertext_frequency_detail').innerHTML=JSON.stringify(ciphertext_frequency);
+
+
+			//create text
+			var text='';
+			for(i in ciphertext_frequency){
+				text=text+ciphertext_frequency[i].char;
+			}
+			document.getElementById('ciphertext_frequency').value=text;
+
+			
+		}
+
+		function decode(){
+
+			var ciphertext_frequency =document.getElementById('ciphertext_frequency').value;
+			var language_frequency = document.getElementById('language_frequency').value;
+			var ciphertext = document.getElementById('ciphertext').value;
+			var cleartext = document.getElementById('ciphertext').value;;
+
+			//replace char by char
+			for(i in ciphertext_frequency){
+				if(language_frequency[i]!=undefined){
+					cleartext=cleartext.replace(new RegExp(ciphertext_frequency[i],'g'), language_frequency[i]);
+				}
+			}
+
+			document.getElementById('cleartext').value=cleartext.toLowerCase();
+
+		}
+	</script>
+</html>
