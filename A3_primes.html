@@ -17,7 +17,7 @@ Prime Number Test : <input min="1" type="number" id="prime" placeholder="Enter N
 
 </div>
 <div id="is_prime"></div>
-</body>
+
 <script>
 
     function prime_test_trial() {
@@ -64,27 +64,28 @@ Prime Number Test : <input min="1" type="number" id="prime" placeholder="Enter N
             s++;
             t = t / 2;
         }
+        while (k > 0) {
+            let b = Math.floor(Math.random() * (n - 1)) + 1;
 
-        let b = Math.floor(Math.random() * (n - 1)) + 1;
-        console.log('random = '+b);
-        let x = (b ** t) % n;
-        console.log(b,x)
-        let i = 0;
-        if (x !== 1) {
-            while (x !== (n-1)) {
-                x = (x ** 2) % n;
-                i++;
-                console.log(s,i,x);
-                if (i === s || x === 1) {
-                    console.log(s,i,x);
-                    return false;
+            let x = (b ** t) % n;
+            let i = 0;
+            if (x !== 1) {
+                while (x !== (n - 1)) {
+                    x = (x ** 2) % n;
+                    i++;
+                    if (i === s || x === 1) {
+                        return false;
+                    }
                 }
             }
+            k--;
         }
         return true;
     }
 
 
 </script>
+</body>
+
 </html>
 

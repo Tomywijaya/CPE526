@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Eratosthenes</title>
+</head>
+<body>
+<h1>Prime Generator</h1>
+<hr>
+Generate Primes: <input min="1" type="number" id="prime" placeholder="Enter Number">
+<button onclick="generate_primes()">Generate</button>
+
+<div id="result">
+
+</div>
+<script>
+    let Eratosthenes = function (n) {
+        this.array = function () {
+            let arr = [];
+            for (let i = 0; i <= n; i++) {
+                arr.push(i);
+            }
+            return arr;
+        };
+
+        this.sieve = function () {
+            let sieve = this.array();
+            let limit = Math.sqrt(n);
+            for (let i = 2; i <= limit; i++) {
+                if (sieve[i]) {
+                    for (let j = i * i; j < n; j += i) {
+                        sieve[j] = false;
+                    }
+                }
+            }
+            let arr = [];
+            for (let k = 2; k < sieve.length; k++) {
+                if (sieve[k]) {
+                    arr.push(sieve[k]);
+                }
+            }
+            return arr;
+        };
+    };
+
+    function generate_primes() {
+
+        let number = document.getElementById('prime').value;
+        let result = new Eratosthenes(number);
+
+
+        document.getElementById('result').innerHTML = result.sieve().join(', ');
+    }</script>
+</body>
+
+</html>
